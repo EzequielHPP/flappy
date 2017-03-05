@@ -8,6 +8,7 @@ var start = false;
 var started = false;
 var startButton = false;
 var birdSize = 35;
+var score = 0;
 
 function game(){
 
@@ -16,6 +17,8 @@ function game(){
         var positionX = (canvasWidth / 2) - 30;
         var positionY = (canvasHeight / 2);
         bird = new bird(birdSize, positionX, positionY, canvasHeight);
+        score = 0;
+        this.updateScore(0);
     };
 
     this.runGame = function(){
@@ -68,6 +71,10 @@ function game(){
                     break;
                 }
 
+                if(pipes[i].pastBird(bird)){
+                    this.updateScore(score + 1);
+                }
+
                 if(pipes[i].offscreen()){
                     pipes.splice(i, 1);
                 }
@@ -85,6 +92,7 @@ function game(){
         if(startButton != false){
             startButton.remove();
             startButton = false;
+            this.updateScore(0);
             bird.resetBird();
         }
         started = true;
@@ -102,5 +110,10 @@ function game(){
 
     this.bounce = function(){
         bird.goUp();
+    }
+
+    this.updateScore = function(newScore){
+        score = newScore;
+        $('#score').html(score);
     }
 }
