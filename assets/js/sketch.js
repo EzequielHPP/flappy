@@ -1,16 +1,47 @@
+
+// global variables
+var canvasWidth;
+var canvasHeight;
+var game;
+var mousePress = false;
+
 function setup() {
-    var canvas = createCanvas(480, 640);
+    //Setup the canvas
+
+    frameRate(60);
+
+    // Get the navigation Height
+    var heightOfNavigation = $('.nav-wrapper').outerHeight();
+
+    // Setup the Canvas width and height
+    canvasWidth = $('#canvas-holder').width();
+    canvasHeight = windowHeight - heightOfNavigation;
+    var canvas = createCanvas(canvasWidth, canvasHeight);
+
+    // Attach the canvas to the right place
     canvas.parent('canvas-holder');
-    background(0);
+
+    // Reset view
+    bgColor = [102, 187, 197];
+    background(bgColor);
     noStroke();
-    fill(102);
+
+    game = new game();
+    game.init();
 }
 
+// Start the game
 function draw() {
+    background(bgColor);
+
+    game.runGame();
+
     if (mouseIsPressed) {
-        fill(0);
+        if(!mousePress) {
+            mousePress = true;
+            game.bounce();
+        }
     } else {
-        fill(255);
+        mousePress = false;
     }
-    ellipse(mouseX, mouseY, 80, 80);
 }

@@ -1,2 +1,2 @@
-
+body{background-color:#60c229;overflow-y:hidden}body>nav{position:fixed;z-index:4;background-color:#356b1b}body>.container{padding-top:64px}#canvas-holder{background-color:#66bbc5;height:100vh;padding:0;margin:0}.stripedbg{background:repeating-linear-gradient(45deg, #356b1b, #4c9f29 10px, #6ae92b 10px, #4c9f29 20px)}.verticalBarContainer{height:100vh;padding:0 !important}.verticalBarContainer .verticalBar{height:100vh;width:20px}
 /*# sourceMappingURL=style.css.map */
