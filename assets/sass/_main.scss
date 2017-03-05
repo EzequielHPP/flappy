@@ -1,0 +1,46 @@
+body {
+    background-color: $mainGreen;
+    overflow-y: hidden;
+
+    > nav {
+        position: fixed;
+        z-index: 4;
+        background-color: $darkGreen;
+    }
+
+    > .container {
+        padding-top: 64px;
+    }
+}
+
+#canvas-holder {
+    background-color: $sky-blue;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+}
+
+.stripedbg {
+    background: repeating-linear-gradient(45deg, $darkGreen, $mediumDarkGreen 10px, $lightGreen 10px, $mediumDarkGreen 20px);
+}
+
+.verticalBarContainer {
+    height: 100vh;
+    padding: 0 !important;
+
+    .verticalBar {
+        height: 100vh;
+        width: 20px;
+    }
+}
+
+.scoreboard {
+    span {
+        font-family: 'Harmattan', sans-serif;
+        font-size: 30px;
+
+        &#score {
+            font-size: 60px;
+        }
+    }
+}
