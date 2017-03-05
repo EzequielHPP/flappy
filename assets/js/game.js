@@ -53,6 +53,7 @@ function game(){
             // Update the position of the bird on the screen
             bird.update();
 
+            // Every 80 frames generate a pipe
             if(frameCount % 80 == 0){
                 pipes.push(new pipe(canvasWidth, canvasHeight, birdSize));
             }
@@ -61,6 +62,11 @@ function game(){
             for(var i = pipes.length-1; i > 0; i--){
                 pipes[i].show();
                 pipes[i].update();
+
+                if(pipes[i].hits(bird)){
+                    this.gameover();
+                    break;
+                }
 
                 if(pipes[i].offscreen()){
                     pipes.splice(i, 1);

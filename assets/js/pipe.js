@@ -19,13 +19,26 @@ function pipe(screenWidth, screenHeight, birdSize) {
         rect(this.x, this.top + this.gapSize, this.rectwidth, this.screenHeight);
     };
 
-    this.update = function(){
-        this.x -= this.speed;
+    this.update = function(birdDead){
+        if(!birdDead) {
+            this.x -= this.speed;
+        }
     };
 
     this.offscreen = function(){
         if(this.x < this.rectwidth * -1){
             return true;
+        }
+
+        return false;
+    };
+
+    this.hits = function(bird){
+        // Check top pipe
+        if((bird.y + birdSize/2) <= this.top || (bird.y + birdSize/2) >= (this.top + this.gapSize)){
+            if((bird.x + birdSize/2) >= this.x && (bird.x + birdSize/2) < this.x + this.rectwidth) {
+                return true;
+            }
         }
 
         return false;
