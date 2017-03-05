@@ -3,6 +3,7 @@
  */
 var bird; // Store the actual bird object
 var pipes = []; // Store the actual pipes objects
+var bg; // Store the background
 var bgColor = []; // Background color for reset purposes
 var start = false;
 var started = false;
@@ -18,6 +19,7 @@ function game(){
         var positionY = (canvasHeight / 2);
         bird = new bird(birdSize, positionX, positionY, canvasHeight);
         score = 0;
+        bg = new bg(canvasWidth, canvasHeight);
         this.updateScore(0);
     };
 
@@ -40,7 +42,7 @@ function game(){
             if (!startButton) {
                 // show the play again button
                 startButton = createButton('Play again?');
-                startButton.position(canvasWidth / 2 + 100, canvasHeight / 2 + 50);
+                startButton.position(canvasWidth / 2 + 100, canvasHeight / 2 + 100);
                 startButton.mousePressed(function () {
                     start = true;
                     started = false;
@@ -66,16 +68,15 @@ function game(){
                 pipes[i].show();
                 pipes[i].update();
 
-                if(pipes[i].hits(bird)){
-                    this.gameover();
+                if(bird.hitsPipe(pipes[i])){
                     break;
                 }
 
-                if(pipes[i].pastBird(bird)){
+                if(!bird.dead && pipes[i].pastBird(bird)){
                     this.updateScore(score + 1);
                 }
 
-                if(pipes[i].offscreen()){
+                if(!bird.dead && pipes[i].offscreen()){
                     pipes.splice(i, 1);
                 }
             }
@@ -86,6 +87,8 @@ function game(){
             // Trigger the game over actions
             this.gameover();
         }
+
+        bg.showBg();
     };
 
     this.startgame = function(){
@@ -100,8 +103,11 @@ function game(){
     };
 
     this.gameover = function(){
+        fill(157, 229, 118);
         textSize(32);
         text("GAME OVER", (canvasWidth / 2 - 90), (canvasHeight / 2 - 50));
+        fill(67, 160, 17);
+        text("Final Score: " + score, (canvasWidth / 2 - 90), (canvasHeight / 2));
         if(start != 'reset') {
             start = 'reset';
             pipes = [];
@@ -110,10 +116,10 @@ function game(){
 
     this.bounce = function(){
         bird.goUp();
-    }
+    };
 
     this.updateScore = function(newScore){
         score = newScore;
         $('#score').html(score);
-    }
+    };
 }
